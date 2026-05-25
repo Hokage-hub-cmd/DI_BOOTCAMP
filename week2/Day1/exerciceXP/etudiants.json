@@ -1,0 +1,17 @@
+[
+    {
+        "Nom":"Emmanuel",
+        "\u00c2ge":22,
+        "Note_Python":18.5
+    },
+    {
+        "Nom":"Grace",
+        "\u00c2ge":24,
+        "Note_Python":15.0
+    },
+    {
+        "Nom":"Emma",
+        "\u00c2ge":21,
+        "Note_Python":19.0
+    }
+]
