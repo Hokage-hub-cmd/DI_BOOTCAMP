@@ -1,57 +1,59 @@
+# Importation de la classe Game depuis le fichier game.py
 from game import Game
 
-def get_user_menu_choice():
-    """Affiche le menu et récupère le choix de l'utilisateur."""
-    print("--- MENU PRINCIPAL ---")
+def get_user_menu_choice() -> str:
+    """Affiche le menu simple et recueille le choix de l'utilisateur sans boucle."""
+    print("\n--- MENU PRINCIPAL ---")
     print("1. Jouer une nouvelle partie")
     print("2. Afficher les scores")
-    print("q. Quitter")
+    print("3. Quitter")
     
-    choice = input("Votre choix : ").strip().lower()
+    choice = input("Saisissez votre choix : ").strip()
     return choice
 
-def print_results(results):
-    """Affiche le récapitulatif des scores de manière conviviale."""
-    print("\n=======================")
-    print("      RÉSULTATS        ")
-    print("=======================")
-    print(f"Victoires : {results['win']}")
-    print(f"Défaites  : {results['loss']}")
-    print(f"Matchs nuls : {results['draw']}")
-    print("=======================")
-    print("Merci d'avoir joué ! À bientôt.\n")
+def print_results(results: dict):
+    """Affiche de manière conviviale le dictionnaire de résultats complet."""
+    print("\n=======================================")
+    print("📊 RÉCAPITULATIF DES SCORES DE LA SESSION")
+    print("=======================================")
+    print(f"🏆 Victoires   (win)  : {results['win']}")
+    print(f"💀 Défaites   (loss) : {results['loss']}")
+    print(f"🤝 Matchs nuls (draw) : {results['draw']}")
+    print("=======================================")
+    print("Merci d'avoir participé à ce jeu ! À bientôt ! 👋\n")
 
 def main():
-    """Fonction principale pour orchestrer le jeu."""
-    # Initialisation du dictionnaire des scores selon le format requis
-    scores = {"win": 0, "loss": 0, "draw": 0}
+    """Fonction principale de contrôle du flux du programme."""
+    # Initialisation du dictionnaire requis : {win: 0, loss: 0, draw: 0}
+    results = {"win": 0, "loss": 0, "draw": 0}
     
     while True:
-        choice = get_user_menu_choice()
+        # Récupération du choix du menu
+        menu_choice = get_user_menu_choice()
         
-        if choice == "1":
-            # Création d'une nouvelle instance de match
-            match = Game()
-            game_result = match.play()
+        if menu_choice == "1":
+            # Création de l'instance de jeu et récupération du résultat retourné par play()
+            game_round = Game()
+            outcome = game_round.play()
             
-            # Mise à jour du dictionnaire de scores
-            if game_result == "victoire":
-                scores["win"] += 1
-            elif game_result == "défaite":
-                scores["loss"] += 1
-            elif game_result == "match nul":
-                scores["draw"] += 1
+            # Incrémentation des compteurs du dictionnaire externe
+            if outcome == "victoire":
+                results["win"] += 1
+            elif outcome == "défaite":
+                results["loss"] += 1
+            elif outcome == "match nul":
+                results["draw"] += 1
                 
-        elif choice == "2":
-            # Option bonus pour voir le score sans quitter
-            print(f"\nScores actuels -> Victoires: {scores['win']}, Défaites: {scores['loss']}, Nuls: {scores['draw']}\n")
+        elif menu_choice == "2":
+            # Affichage rapide des scores intermédiaires
+            print(f"\n📈 Scores actuels -> Victoires: {results['win']} | Défaites: {results['loss']} | Nuls: {results['draw']}")
             
-        elif choice in ["q", "x"]:
-            # Fin du programme et affichage final
-            print_results(scores)
+        elif menu_choice in ["3", "q", "x", "Q", "X"]:
+            # Appel de la fonction d'affichage final et sortie de la boucle
+            print_results(results)
             break
         else:
-            print("Option indisponible. Veuillez choisir 1, 2 ou q.\n")
+            print("❌ Option invalide du menu. Veuillez choisir 1, 2 ou 3.")
 
 if __name__ == "__main__":
     main()
